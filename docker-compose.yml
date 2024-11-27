@@ -6,9 +6,12 @@ services:
     image: apache/nifi:latest
     container_name: nifi_service
     ports:
-      - "8080:8080"
+      - "8443:8443"
     environment:
-      NIFI_WEB_HTTP_PORT: 8080
+      NIFI_WEB_HTTP_PORT: 8443
+    command: >
+      /bin/bash -c "
+      ./bin/nifi.sh set-single-user-credentials optidata 5f4oZ682Jh09k5w
 
   mysql:
     image: mysql:latest
