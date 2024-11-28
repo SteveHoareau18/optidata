@@ -8,9 +8,10 @@ services:
       NIFI_WEB_HTTP_PORT: 8443
       NIFI_PASSWORD: ${NIFI_PASSWORD}
     volumes:
-      - ./start-nifi.sh:/start-nifi.sh
+      - ./init-nifi.sh:/init-nifi.sh
     command: >
-      /bin/bash -c "/start-nifi.sh"
+      /bin/bash /init-nifi.sh
+
   mysql:
     image: mysql:latest
     container_name: mysql_service
