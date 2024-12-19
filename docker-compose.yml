@@ -11,7 +11,7 @@ services:
       - SINGLE_USER_CREDENTIALS_PASSWORD=${NIFI_USER_PASSWORD}
     command: ["nifi.sh", "start"]
     volumes:
-      - ./nifi-data:/data  # Volume pour monter ton répertoire local (remplace par ton chemin local)
+      - ./nifi:/data  # Volume pour monter ton répertoire local (remplace par ton chemin local)
     networks:
       - app-network
 
