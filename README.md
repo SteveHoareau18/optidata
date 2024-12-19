@@ -58,3 +58,10 @@ You need to manage this information by creating services
 - to set the account to expire at a given time (useful for demo accounts or accounts deleted before being archived)
 - to define a locked account at a given time
 - to say that the password has expired at a certain time (it is advisable to change your password regularly...)
+
+
+
+
+
+### récupérer l'image pour pouvoir lancer le docker docker-compose --env-file .env-prod up
+docker load nifi_optidata.tar nifi_optidata:latest
