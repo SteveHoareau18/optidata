@@ -1,63 +1,85 @@
-# SpringRestfullStatelessStarter
+Optidata
+========
 
-<p>A Spring Restfull (using JWT) &amp; Stateless starter [UP TO DATE]</p>
-Based from
-<ul>
-<li>
-https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac
-</li>
-<li>
-https://github.com/tericcabrel/blog-tutorials/tree/main/springboot-jwt-auth
-</li>
-</ul>
+**Optidata** est un projet universitaire conçu pour répondre aux besoins réels des petites et moyennes entreprises (PME).  
+L'objectif est de fournir une solution intégrée basée sur **Docker**, embarquant des services tels que **NiFi**, **MySQL**, et une interface web.
 
-# How to run ?
-Recommended
-- MySQL Server 8.2
-Required
-- JDK 22
-- MySQL Server (for other, edit build.gradle.kts)
+---
 
-<p>This project is using Gradle Kotlin, please see `build.gradle.kts`</p>
+**Description du Projet**
+-------------------------
 
-## Please, before run, check `application.properties`
+Ce projet vise à intégrer les données d'une entreprise afin de les gérer via un workflow NiFi.  
+Le workflow permet de traiter les données, puis de les enregistrer dans une base de données MySQL dédiée.
 
-Custom with your values:
-- server.port (Facultative to edit)
-- spring.datasource.url
-- spring.datasource.username
-- spring.datasource.password
-- spring.jpa.hibernate.ddl-auto (Facultative to edit)
-- spring.jpa.open-in-view=false (Facultative)
-- security.jwt.secret-key
-- security.jwt.expiration-time (Facultative to edit)
+Les données brutes ne sont pas stockées directement dans le dépôt GitHub en raison de leur taille.  
+Un Google Drive est utilisé pour stocker et partager ces fichiers :  
+`Lien vers le Google Drive <https://drive.google.com/drive/folders/1f5ePEdOSBNZsO4NQhb4iMCa4DmaReMID?dmr=1&ec=wgc-drive-globalnav-goto>`_
 
-<p>To generate your own SECRET_KEY</p>
+---
 
-```shell
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-Source: https://dev.to/tkirwa/generate-a-random-jwt-secret-key-39j4
+**Fonctionnalités principales**
+-------------------------------
 
-## Run the project
+- Conteneurisation des services avec Docker.
+- Gestion et transformation des données avec NiFi.
+- Stockage structuré des données dans une base MySQL.
+- Possibilité d'ajouter une interface web pour la visualisation et l'interaction.
 
-```shell
-gradlew bootRun
-```
+---
 
-## And after run?
+**Prérequis**
+-------------
 
-By default, users have (in fr.steve.spring.service/AuthenticationService.java)
-- an activated account: user.setEnabled(true) ;
-- a non-expired account: user.setAccountNonExpired(true) ;
-- an account that is not locked: user.setAccountNonLocked(true) ;
-- an account with an unexpired password: user.setCredentialsNonExpired(true) ;
+- **Docker** installé sur votre machine.
+- Une connexion à Google Drive pour récupérer les fichiers d'exemple.
+- Accès à l'image NiFi et MySQL via Docker Hub.
 
-You need to manage this information by creating services
-- to disable the user when it is created and enable it when the account is confirmed.
-- to set the account to expire at a given time (useful for demo accounts or accounts deleted before being archived)
-- to define a locked account at a given time
-- to say that the password has expired at a certain time (it is advisable to change your password regularly...)
+---
+
+**Étapes pour Utiliser le Projet**
+----------------------------------
+
+1. **Cloner le dépôt GitHub**  
+   Clonez le projet sur votre machine locale :  
+   ``git clone https://github.com/SteveHoareau18/optidata.git``
+
+2. **Récupérer les fichiers sur Google Drive**  
+   <https://drive.google.com/drive/folders/1f5ePEdOSBNZsO4NQhb4iMCa4DmaReMID?dmr=1&ec=wgc-drive-globalnav-goto>
+
+3. **Placer les fichiers au bon endroit**   
+   Placez-les dans les répertoires désignés :
+   Le fichier Excel --> ``optidata/nifi/fichier_excel``
+   Télécharger l'image NIFI dans l'environnement en éxécutant la commande suivante --> ``docker load chemin/vers/nifi_optidata.tar nifi_optidata:latest``
+
+5. **Lancer les services**  
+   Exécutez la commande suivante pour démarrer les conteneurs Docker :  
+   ``docker-compose --env-file .env-prod up -d``
+
+6. **Configurer NiFi**  
+   Accédez à l'interface de NiFi via ``http://localhost:8443`` et configurez les workflows en important le fichier json présent sur le drive ( NIFI_OPTIDATA.json par exemple ) 
+
+7. **Importer les données dans MySQL**  
+   - Vérifiez que votre base de données est prête à recevoir les données en observant le service associé. Ce dernier doit être au staut "enabled".
+   - Configurez une table dédiée en fonction des besoins du workflow si elle n'existe pas encore.
+
+8. **Visualiser et analyser les données**  
+   Une fois les données intégrées, vous pouvez les analyser directement dans MySQL ou via l'interface web si configurée.
+
+---
+
+**Notes Importantes**
+---------------------
+
+- Les workflows NiFi peuvent être exportés et importés au format XML/JSON pour partage et réutilisation.
+
+---
+
+**Contact**
+-----------
+
+Pour toute question ou contribution, contactez-nous via notre dépôt GitHub ou l'adresse e-mail associée au projet.
+
 
 
 
