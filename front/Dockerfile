@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Utiliser une image Python 3.10 slim
 FROM python:3.10-slim
 
@@ -32,4 +30,3 @@ EXPOSE 8000
 
 # Lancer le serveur de développement Django
 CMD ["python", "manage.py", "runserver","localhost:8000"]
->>>>>>> 0e2fcc9 (fix token in project)
