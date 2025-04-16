@@ -1,12 +1,21 @@
-FROM eclipse-temurin:23-jdk-alpine
+FROM python:3.12-alpine
 
-RUN apk add --no-cache gradle bash
+COPY . /app
 
 WORKDIR /app
 
-COPY . .
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    postgresql-dev \
+    libffi-dev \
+    python3-dev \
+    py3-setuptools \
+    py3-pip \
+    && pip install --upgrade pip
 
-CMD rm -rf .gradle/
-CMD rm -rf build/
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["sh", "-c", "gradle build && gradle bootRun"]
+EXPOSE 8000
+
+CMD ["fastapi", "run", "main.py", "--port", "8000"]

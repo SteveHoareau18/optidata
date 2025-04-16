@@ -1,0 +1,13 @@
+fastapi[standard]
+uvicorn[gunicorn]
+sqlalchemy
+asyncpg
+psycopg2-binary
+alembic
+sqlalchemy-utils
+pydantic
+databases
+psycopg2
+gunicorn
+asyncsql
+pyjwt
