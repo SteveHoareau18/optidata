@@ -17,8 +17,10 @@ RUN cd /data/drivers && \
     wget -O mysql-connector-j-8.0.33.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar && \
     ls -lah /data/drivers
 
-RUN chown -R nifi:nifi /data/drivers
+RUN cp /data/drivers/*.jar /opt/nifi/nifi-current/lib/
+RUN chown -R nifi:nifi /data/drivers /opt/nifi/nifi-current/lib/
 
 WORKDIR /opt/nifi/nifi-current
 
 USER nifi
+
