@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Gridstack Demo</title>
+    {% load static %}
+    <script src="{% static "js/gridstack-all.min.js" %} "></script>
+    <link href="{% static "css/gridstack.min.css" %}" rel="stylesheet"/>
+    <style>
+        body { margin: 20px; font-family: Arial, sans-serif; }
+        .grid-stack-item-content { background: #e0e0e0; border: 1px solid #ccc; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard Gridstack Demo</h1>
+    <div class="grid-stack"></div>
+
+    
+    <!-- Ensuite, votre code d'initialisation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var grid = GridStack.init();
+            var widgets = {{ widgets|safe }};
+            widgets.forEach(function(widget) {
+                // Créer l'élément pour le widget
+                var item = document.createElement('div');
+                item.classList.add('grid-stack-item');
+                item.setAttribute('data-gs-x', widget.position_x);
+                item.setAttribute('data-gs-y', widget.position_y);
+                item.setAttribute('data-gs-width', widget.width);
+                item.setAttribute('data-gs-height', widget.height);
+    
+                // Créer le contenu du widget
+                var content = document.createElement('div');
+                content.classList.add('grid-stack-item-content');
+                content.innerHTML = widget.name;
+    
+                // Insérer le contenu dans l'élément
+                item.appendChild(content);
+    
+                // Ajouter le widget à la grille
+                grid.addWidget(item);
+            });
+        });
+    </script>
+    
+</body>
+</html>
